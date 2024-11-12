@@ -5,7 +5,6 @@ from models import User, Client
 from dbs import db
 from flask import Flask, render_template, jsonify
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:password@127.0.0.1/admin'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
@@ -63,7 +62,7 @@ def client_add():
        new_client = Client()
        form.populate_obj(new_client)
        new_client.save()
-       return redirect(url_for('client'))
+       return redirect(url_for('show_report'))
     return render_template("client/client_add.html", form=form )
 
 @app.route('/client/edit/<client_id>', methods=['GET', 'POST'])
@@ -73,7 +72,7 @@ def client_edit(client_id):
     if form.validate_on_submit():
         form.populate_obj(data)
         data.save()
-        return redirect(url_for('client'))
+        return redirect(url_for('show_report'))
     return render_template('client/client_edit.html',form=form)
 
 @app.route('/client/delete/<client_id>', methods=['GET', 'POST'])
